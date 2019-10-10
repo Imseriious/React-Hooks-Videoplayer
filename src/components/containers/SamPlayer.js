@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Video from '../Video';
 import Playlist from './Playlist';
 import { ThemeProvider } from 'styled-components';
 import StyledSamPlayer from '../styles/StyledSamPlayer';
 
 const theme = {
-    bgcolor: "353535",
+    bgcolor: "#353535",
     bgcolorItem: "#414141",
     bgcolorItemActive: "#405c63",
     bgcolorPlayed: "#526d4e",
@@ -26,6 +26,16 @@ const themeLight = {
 
 const SamPlayer = props => {
 
+    const videos = JSON.parse(document.querySelector('[name="videos"]').value);
+
+    const [state, setState] = useState({
+        videos: videos.playlist,
+        activeVideo: videos.playlist[0],
+        nightMode: true,
+        playlistId: videos.playlistId,
+        autoplay: false
+    });
+
     const nightModeCallback = () => {
 
     }
@@ -42,21 +52,21 @@ const SamPlayer = props => {
     return (
         <ThemeProvider theme={state.nightMode ? theme : themeLight}>
             {state.videos !== null ? (
-            <StyledSamPlayer>
-                <Video 
-                active={state.activeVideo}
-                autoplay={state.autoplay}
-                endCallback={endCallback}
-                progressCallback={progressCallback}
-                />
-                <Playlist 
-                videos={state.videos}
-                active={state.active}
-                nightModeCallback={nightModeCallback}
-                nightMode={state.nightMode}
-                />
-            </StyledSamPlayer>
-        ) : null}
+                <StyledSamPlayer>
+                    <Video
+                        active={state.activeVideo}
+                        autoplay={state.autoplay}
+                        endCallback={endCallback}
+                        progressCallback={progressCallback}
+                    />
+                    <Playlist
+                        videos={state.videos}
+                        active={state.activeVideo}
+                        nightModeCallback={nightModeCallback}
+                        nightMode={state.nightMode}
+                    />
+                </StyledSamPlayer>
+            ) : null}
         </ThemeProvider>
     );
 }
