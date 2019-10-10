@@ -25,14 +25,40 @@ const themeLight = {
 }
 
 const SamPlayer = props => {
+
+    const nightModeCallback = () => {
+
+    }
+
+    const endCallback = () => {
+
+    }
+
+    const progressCallback = () => {
+
+    }
+
+
     return (
         <ThemeProvider theme={state.nightMode ? theme : themeLight}>
+            {state.videos !== null ? (
             <StyledSamPlayer>
-                <Video />
-                <Playlist />
+                <Video 
+                active={state.activeVideo}
+                autoplay={state.autoplay}
+                endCallback={endCallback}
+                progressCallback={progressCallback}
+                />
+                <Playlist 
+                videos={state.videos}
+                active={state.active}
+                nightModeCallback={nightModeCallback}
+                nightMode={state.nightMode}
+                />
             </StyledSamPlayer>
+        ) : null}
         </ThemeProvider>
-        );
+    );
 }
-        
+
 export default SamPlayer;
