@@ -1,7 +1,8 @@
 import React from 'react';
+import SamPlayer from './SamPlayer';
 
 const App = () => (
-  <div>Start here!</div>
+  <div><SamPlayer/></div>
 )
 
 export default App;
