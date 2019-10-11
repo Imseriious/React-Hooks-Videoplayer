@@ -24,7 +24,7 @@ const themeLight = {
     color: "#353535",
 }
 
-const SamPlayer = props => {
+const SamPlayer = ({match, history, location}) => {
 
     const videos = JSON.parse(document.querySelector('[name="videos"]').value);
 
@@ -35,6 +35,25 @@ const SamPlayer = props => {
         playlistId: videos.playlistId,
         autoplay: false
     });
+
+    useEffect(() => {
+        const videoId = match.params.activeVideo;
+        if(videoId !== undefined) {
+            const newActiveVideo = state.videos.findIndex(
+                video => video.id === videoId,
+            );
+            setState(prev => ({
+                ...prev,
+                activeVideo: prev.videos[newActiveVideo],
+                autoplay: location.autoplay
+            }));
+        } else {
+            history.push({
+                pathname: `/${state.activeVideo.id}`,
+                autoplay: false,
+            })
+        }
+    }, [])
 
     const nightModeCallback = () => {
 
