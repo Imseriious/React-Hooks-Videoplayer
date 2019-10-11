@@ -56,15 +56,10 @@ const SamPlayer = ({match, history, location}) => {
     }, [])
 
     const nightModeCallback = () => {
-
-    }
-
-    const endCallback = () => {
-
-    }
-
-    const progressCallback = () => {
-
+        setState(prevState=>({
+            ...prevState,
+            nightMode: !prevState.nightMode
+        }));
     }
 
 
@@ -75,8 +70,6 @@ const SamPlayer = ({match, history, location}) => {
                     <Video
                         active={state.activeVideo}
                         autoplay={state.autoplay}
-                        endCallback={endCallback}
-                        progressCallback={progressCallback}
                     />
                     <Playlist
                         videos={state.videos}
